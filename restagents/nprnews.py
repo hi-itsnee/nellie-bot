@@ -9,11 +9,11 @@ def get_stories(term):
     url = url.replace("[MYKEY]", api_info('npr')['key'])
     url = url.replace("[SEARCHTERM]", term)
     data = rest.get(url)
-    if 'message' in data.keys():
-        print data['message'][0]['text']['$text']
-        sys.exit()
-    stories = data['list']['story']
     hits = {}
+    if 'message' in data.keys():
+        hits[data['message'][0]['text']['$text']] = 'http://www.npr.org'
+        return hits
+    stories = data['list']['story']
     for story in stories:
         hits[story['title']['$text']] = story['link'][0]['$text']
     return hits
