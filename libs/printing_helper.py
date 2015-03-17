@@ -3,7 +3,7 @@ import wx,sys
 import wx.lib.agw.hyperlink as hl
 import urllib2
 from config_helper import get_proxies
-sys.path.append(r'C:\nellie-bot')
+
 def print_title_link_pairs(adict):
     titles = adict.keys()
     for title in titles:
