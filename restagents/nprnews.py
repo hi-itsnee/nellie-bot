@@ -11,7 +11,6 @@ def get_stories(term):
     data = rest.get(url)
     hits = {}
     if 'message' in data.keys():
-        hits[data['message'][0]['text']['$text']] = 'http://www.npr.org'
         return hits
     stories = data['list']['story']
     for story in stories:
