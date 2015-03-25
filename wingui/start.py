@@ -1,5 +1,6 @@
 import wx, sys, os
-basepath = os.getcwd()
+basepath = os.getcwd()+os.path.sep+".."
+sys.path.append(basepath)
 sys.path.append(basepath+os.path.sep+"libs")
 sys.path.append(basepath+os.path.sep+"restagents")
 sys.path.append(basepath+os.path.sep+"rssagents")
