@@ -1,0 +1,10 @@
+{% block body %}
+  <ul class=entries>
+  {% for entry in entries %}
+    <li><h4>{{ entry }}</h4>
+    <a href={{ entries[entry]|safe }}>{{ entries[entry]|safe }}</a>
+  {% else %}
+    <li><em>Unbelievable.  No entries here so far</em>
+  {% endfor %}
+  </ul>
+{% endblock %}
