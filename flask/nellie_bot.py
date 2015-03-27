@@ -1,6 +1,6 @@
 from flask import Flask, url_for, redirect,render_template, request
 import os, sys
-basepath = os.getcwd()+os.path.sep+r"..//"
+basepath = os.getcwd()+os.path.sep+r".."
 print basepath
 sys.path.append(basepath)
 sys.path.append(basepath+os.path.sep+"libs")
@@ -15,24 +15,40 @@ import buzzfeed, marketplace
 from werkzeug.debug import get_current_traceback
 app = Flask(__name__)
 
+cache_keywords = []
 @app.route('/', methods=['POST','GET'])
 def main_page():
     error = None
     if request.method=='POST':
         item= request.form
-        if "marketplace" in item:
-            print item
-            return redirect(url_for('.show_entries',source='marketplace'))
-        elif "hackernews" in item:
-            return redirect(url_for('.show_entries',source='hackernews'))
-        elif "buzzfeed" in item:
-            print "do nothing for now"
-        else:
-            return redirect(url_for('.show_entries',source=item.keys()[0]))
+        return rerouting(item)
     return render_template('index.html')
+
+def rerouting(item):
+    if "marketplace" in item:
+        return redirect(url_for('.show_entries',source='marketplace'))
+    elif "hackernews" in item:
+        return redirect(url_for('.show_entries',source='hackernews'))
+    elif "buzzfeed" in item:
+        print "do nothing for now"
+    else:
+        #return redirect(url_for('.show_entries',source=item.keys()[0]))
+        return redirect(url_for('.data_input',source=item.keys()[0]))
+
+@app.route('/<source>/data', methods=['POST','GET'])
+def data_input(source):
+    global cache_keywords
+    static_text="What would you like to know about?"
+    if source == "hackernews":
+        static_text="Enter number of stories:"
+    if request.method=='POST':
+        cache_keywords = [item.strip() for item in request.form['data'].split(',')]
+        return redirect(url_for('.show_entries',source=source))
+    return render_template('get_optional_data.html',static_text=static_text)
 
 @app.route('/news/<source>')
 def show_entries(source):
+    global cache_keywords
     if source=='marketplace':
         stories = getattr(sys.modules[source], "get_stories")()
     elif source=='hackernews':
@@ -40,8 +56,14 @@ def show_entries(source):
     elif source=="buzzfeed":
         print "do nothing for now"
     else:
-        stories = getattr(sys.modules[source], "get_stories")("india")
+        stories = {}
+        for word in cache_keywords:
+            stories.update(getattr(sys.modules[source], "get_stories")(str(word)))
     try:
+        if stories == {}:
+            foo=get_placekitten()
+            print foo
+            return render_template('show_entries.html',entries=foo.encode('utf-8'))
         return render_template('show_entries.html', entries=stories)
     except:
         track = get_current_traceback(skip=1,show_hidden_frames=True,
