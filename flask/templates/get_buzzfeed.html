@@ -1,0 +1,33 @@
+{% extends "index.html"%}
+{% block body %}
+<h4>{{static_text}}</h4><p>
+<h6>
+<form method = 'post'>
+    <label for="homepage">
+    <input type="checkbox" size=20 name=homepage id=homepage />
+    Homepage</label><p>
+    
+    <label for="usnews">
+    <input type="checkbox" size=20 id=usnews name=usnews value="US News">
+    US News</label><p>
+    
+    <label for="animals"> 
+    <input type="checkbox" size=20 id=animals name=animals value="Animals">
+    Animals</label><p>
+
+    <label for="tech">
+    <input type="checkbox" size=20 id=tech name=tech value="Tech">
+    Tech</label><p>
+    
+    <label for="entertainment">
+    <input type="checkbox" size=20 id=entertainment name=entertainment value="Entertainment">
+    Entertainment</label><p>
+
+    <label for="sports">
+    <input type="checkbox" size=20 id=sports name=sports value="Sports">
+    Sports</label><p>
+
+    <input type="submit" id="submit" value="Find stories">
+</form></h6>
+{%endblock%}
+

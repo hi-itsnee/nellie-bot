@@ -29,10 +29,19 @@ def rerouting(item):
     elif "hackernews" in item:
         return redirect(url_for('.show_entries',source='hackernews'))
     elif "buzzfeed" in item:
-        print "do nothing for now"
-    else:
-        #return redirect(url_for('.show_entries',source=item.keys()[0]))
         return redirect(url_for('.data_input',source=item.keys()[0]))
+    else:
+        return redirect(url_for('.data_input',source=item.keys()[0]))
+
+@app.route('/buzzfeed/data', methods=['POST','GET'])
+def bzfd_input():
+    global cache_keywords
+    static_text = "Select one or more categories"
+    if request.method=='POST':
+        cache_keywords = request.form.keys()
+        print cache_keywords
+        return redirect(url_for('.show_entries',source="buzzfeed"))
+    return render_template('get_buzzfeed.html',static_text=static_text)
 
 @app.route('/<source>/data', methods=['POST','GET'])
 def data_input(source):
@@ -56,8 +65,6 @@ def show_entries(source):
         stories = getattr(sys.modules[source], "get_stories")()
     elif source=='hackernews':
         stories = getattr(sys.modules[source], "get_stories")(15)
-    elif source=="buzzfeed":
-        print "do nothing for now"
     else:
         stories = {}
         for word in cache_keywords:
