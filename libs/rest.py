@@ -2,6 +2,8 @@ import requests,sys
 from config_helper import get_proxies
 
 def get_pem():
+    if get_proxies()==None:
+        return None
     pem_resp = requests.get('http://curl.haxx.se/ca/cacert.pem', proxies=get_proxies())
     if pem_resp.status_code != 200:
         print "ERROR: Received bad response from api: %d" % pem_resp.status_code

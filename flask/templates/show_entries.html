@@ -1,8 +1,15 @@
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<meta http-equiv="refresh" content="0;url=javascript:history.go(-2)" />
+<div class=page>
 {% block body %}
+  <form method='post'>
+    <input type='submit' name='home' value='Return to main page'>
+  </form>
   {% for entry in entries %}
     <h4>{{ entry }}</h4>
-    <a href={{ entries[entry]|safe }}>{{ entries[entry]|safe }}</a>
+    <a href={{ entries[entry]|safe }} target="_blank">{{ entries[entry]|safe }}</a>
     {% else %}
     {{entries.decode('utf-8')|e}}
   {% endfor %}
 {% endblock %}
+</div>

@@ -1,15 +1,17 @@
 <!doctype html>
 <title>Nellie Bot</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <div class=page>
-<h1>Welcome!</h1>
+<h1>Welcome!</h1><p>
 I am Nellie-Bot. I am a one stop news aggregator, bringing you the top news of the day!
-<h2>Where would you like to begin?</h2>
+<p><h2>Where would you like to begin?</h2><p>
 <form method='post'>
-<input type="submit" name="nytimes" value="New York Times"><p>
-<input type="submit" name="washpost" value="Washington Post"><p>
-<input type="submit" name="nprnews" value="NPR News"><p>
-<input type="submit" name="buzzfeed" value="Buzzfeed"><p>
-<input type="submit" name="marketplace" value="Marketplace"><p>
-<input type="submit" name="hackernews" value="HackerNews"><p>
+<input type="submit" id="submit" name="nytimes" value="New York Times"><p>
+<input type="submit" id="submit" name="washpost" value="Washington Post"><p>
+<input type="submit" id="submit" name="nprnews" value="NPR News"><p>
+<input type="submit" id="submit" name="buzzfeed" value="Buzzfeed"><p>
+<input type="submit" id="submit" name="marketplace" value="Marketplace"><p>
+<input type="submit" id="submit" name="hackernews" value="HackerNews"><p>
 </form>
+{% block body %} {% endblock %}
 </div>

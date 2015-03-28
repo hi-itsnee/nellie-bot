@@ -1,7 +1,6 @@
 from flask import Flask, url_for, redirect,render_template, request
 import os, sys
 basepath = os.getcwd()+os.path.sep+r".."
-print basepath
 sys.path.append(basepath)
 sys.path.append(basepath+os.path.sep+"libs")
 sys.path.append(basepath+os.path.sep+"restagents")
@@ -46,8 +45,12 @@ def data_input(source):
         return redirect(url_for('.show_entries',source=source))
     return render_template('get_optional_data.html',static_text=static_text)
 
-@app.route('/news/<source>')
+@app.route('/news/<source>', methods=['GET','POST'])
 def show_entries(source):
+    if request.method=='POST':
+        print request.form
+        if request.form['home']=='Return to main page':
+            return redirect(url_for('.main_page'))
     global cache_keywords
     if source=='marketplace':
         stories = getattr(sys.modules[source], "get_stories")()
@@ -69,6 +72,7 @@ def show_entries(source):
         track = get_current_traceback(skip=1,show_hidden_frames=True,
             ignore_system_exceptions=False)
         track.log()
+
 
 @app.errorhandler(Exception)
 def exception_handler(error):
