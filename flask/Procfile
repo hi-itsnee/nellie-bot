@@ -1,1 +1,0 @@
-web: gunicorn nellie_bot:app --log-file -
