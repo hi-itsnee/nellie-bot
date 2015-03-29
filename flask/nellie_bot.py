@@ -5,7 +5,6 @@ sys.path.append(basepath)
 sys.path.append(basepath+os.path.sep+"libs")
 sys.path.append(basepath+os.path.sep+"restagents")
 sys.path.append(basepath+os.path.sep+"rssagents")
-from printing_helper import *
 from config_helper import *
 from rest import *
 from rss import *
