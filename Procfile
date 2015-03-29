@@ -1,1 +1,1 @@
-web: gunicorn nellie-bot.wsgi --log-file -
+web: gunicorn nellie-bot:app --log-file -
