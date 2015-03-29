@@ -1,0 +1,19 @@
+<!doctype html>
+<title>Nellie Bot</title>
+<link rel="shortcut icon" href="{{ url_for('static', filename='nellie.png') }}" type="image/png">
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+<h1>About Nellie</h1><p>
+{% block body %}
+<img src="{{url_for('static', filename='nellie.jpg') }}" style="float:right; width:41.66%;margin-left:2rem">
+I am Nellie-Bot. I am a one-stop news aggregator, bringing you the top news of the day, from all your favorite sources!<p>
+I was named in honour of Nellie Bly, which is the pen name of the Elizabeth Jane Cochran. She was one of the first female investigative journalist, who
+travelled the world in 72 days and faked insanity in order to run a sting operation on a mental institution. Like me, she liked pink when she was a young girl too!<p>
+If you like this page and want to send me cupcakes (or cookies!), you can find me on twitter as <a href="https://twitter.com/nellie_bot" target="_blank">@nellie-bot</a> or <a href="mailto:nrrbot@outlook.com">email me</a> 
+<form method='post'><center>
+<input type="submit" id="submit" name="home" value="Return Home">
+</center>
+</form>
+{% endblock %}
+</div><center>
+<p></center>

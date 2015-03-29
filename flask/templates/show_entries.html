@@ -1,17 +1,21 @@
+<title>Nellie Bot</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <link rel="shortcut icon" href="{{ url_for('static', filename='nellie.png') }}" type="image/png">
 <!--<img src="" style="float:right; width:41.66%;margin-right:2rem;margin-top:2rem">-->
-<meta http-equiv="refresh" content="0;url=javascript:history.go(-2)" />
 <div class=page> <!--style="float:left;margin-left:2rem" -->
 {% block body %}
   <form method='post'>
   <center><input type='submit' id='submit' name='home' value='Return to main page'align="middle"></center>
   </form>
-  {% for entry in entries %}
-    <h4>{{ entry }}</h4>
-    <a href={{ entries[entry]|safe }} target="_blank">{{ entries[entry]|safe }}</a>
-    {% else %}
-    {{entries.decode('utf-8')|e}}
+  {% if entries != None %}
+    {% for entry in entries %}
+        <h4>{{ entry }}</h4>
+        <a href={{ entries[entry]|safe }} target="_blank">{{ entries[entry]|safe }}</a>
   {% endfor %}
+  {% else %}<center>
+    Sorry! I couldn't find anything<p>Here's a picture of a cat instead!<p>
+    <img src="{{url_for('static',filename='kitty.jpeg')}}">
+   </center>
+   {% endif %}
 {% endblock %}
 </div>

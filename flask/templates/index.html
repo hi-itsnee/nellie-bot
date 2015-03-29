@@ -3,7 +3,7 @@
 <link rel="shortcut icon" href="{{ url_for('static', filename='nellie.png') }}" type="image/png">
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <div class=page>
-<h1>Welcome!</h1><p>
+<h1>{{ greeting }}</h1><p>
 I am Nellie-Bot. I am a one-stop news aggregator, bringing you the top news of the day, from all your favorite sources!
 <img src="{{url_for('static', filename='nellie.jpg') }}" style="float:right; width:41.66%;margin-left:2rem">
 <p><h2>Where would you like to begin?</h2><p>
@@ -14,6 +14,8 @@ I am Nellie-Bot. I am a one-stop news aggregator, bringing you the top news of t
 <input type="submit" id="submit" name="buzzfeed" value="Buzzfeed"><p>
 <input type="submit" id="submit" name="marketplace" value="Marketplace"><p>
 <input type="submit" id="submit" name="hackernews" value="HackerNews"><p>
-</form>
 {% block body %} {% endblock %}
-</div>
+</div><center>
+<input type="submit" id="submit" name="about" value="About Nellie">
+</form>
+<p></center>

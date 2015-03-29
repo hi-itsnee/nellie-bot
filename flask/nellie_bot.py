@@ -1,5 +1,5 @@
 from flask import Flask, url_for, redirect,render_template, request
-import os, sys
+import os, sys, datetime
 basepath = os.getcwd()+os.path.sep+r".."
 sys.path.append(basepath)
 sys.path.append(basepath+os.path.sep+"libs")
@@ -21,7 +21,18 @@ def main_page():
     if request.method=='POST':
         item= request.form
         return rerouting(item)
-    return render_template('index.html')
+    return render_template('index.html',greeting=get_greeting())
+
+def get_greeting():
+    n = datetime.datetime.now()
+    retval = "Hello, there!"
+    if n.hour > 16:
+        retval = "Good evening!"
+    elif n.hour > 13:
+        retval = "Good afternoon!"
+    elif n.hour > 7:
+        retval = "Good morning!"
+    return retval
 
 def rerouting(item):
     if "marketplace" in item:
@@ -30,8 +41,16 @@ def rerouting(item):
         return redirect(url_for('.show_entries',source='hackernews'))
     elif "buzzfeed" in item:
         return redirect(url_for('.data_input',source=item.keys()[0]))
+    elif "about" in item:
+        return redirect(url_for('.about_page'))
     else:
         return redirect(url_for('.data_input',source=item.keys()[0]))
+
+@app.route('/about', methods=['POST','GET'])
+def about_page():
+    if request.method=='POST':
+        return redirect(url_for('.main_page'))
+    return render_template('about_nellie.html')
 
 @app.route('/buzzfeed/data', methods=['POST','GET'])
 def bzfd_input():
@@ -71,15 +90,12 @@ def show_entries(source):
             stories.update(getattr(sys.modules[source], "get_stories")(str(word)))
     try:
         if stories == {}:
-            foo=get_placekitten()
-            print foo
-            return render_template('show_entries.html',entries=foo.encode('utf-8'))
+            return render_template('show_entries.html',entries=None)
         return render_template('show_entries.html', entries=stories)
     except:
         track = get_current_traceback(skip=1,show_hidden_frames=True,
             ignore_system_exceptions=False)
         track.log()
-
 
 @app.errorhandler(Exception)
 def exception_handler(error):
