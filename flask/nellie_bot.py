@@ -1,6 +1,6 @@
 from flask import Flask, url_for, redirect,render_template, request
 import os, sys, datetime
-basepath = os.getcwd()+os.path.sep+r".."
+basepath = os.getcwd()
 sys.path.append(basepath)
 sys.path.append(basepath+os.path.sep+"libs")
 sys.path.append(basepath+os.path.sep+"restagents")
