@@ -28,7 +28,7 @@ h6              { color: #de5e5e; font-size: 0.85em;
                   background: -o-linear-gradient(top,#f78096 0%,#f56778 100%);
                   background: -ms-linear-gradient(top,#f78096 0%,#f56778 100%);
                   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#f78096',endColorstr='#f78096',GradientType=0);
-                  padding:8px 14px;
+                  padding:5px 10px;
                   color:#fff;
                   font-family:'Helvetica Neue',sans-serif;
                   font-size:15px;

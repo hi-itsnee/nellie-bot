@@ -57,10 +57,11 @@ def bzfd_input():
     global cache_keywords
     static_text = "Select one or more categories"
     if request.method=='POST':
+        if "about" in request.form:
+            return redirect(url_for('.about_page'))
         cache_keywords = request.form.keys()
-        print cache_keywords
         return redirect(url_for('.show_entries',source="buzzfeed"))
-    return render_template('get_buzzfeed.html',static_text=static_text)
+    return render_template('get_buzzfeed.html',static_text=static_text, greeting=get_greeting())
 
 @app.route('/<source>/data', methods=['POST','GET'])
 def data_input(source):
@@ -69,14 +70,15 @@ def data_input(source):
     if source == "hackernews":
         static_text="Enter number of stories:"
     if request.method=='POST':
+        if "about" in request.form:
+            return redirect(url_for('.about_page'))
         cache_keywords = [item.strip() for item in request.form['data'].split(',')]
         return redirect(url_for('.show_entries',source=source))
-    return render_template('get_optional_data.html',static_text=static_text)
+    return render_template('get_optional_data.html',static_text=static_text, greeting=get_greeting())
 
 @app.route('/news/<source>', methods=['GET','POST'])
 def show_entries(source):
     if request.method=='POST':
-        print request.form
         if request.form['home']=='Return to main page':
             return redirect(url_for('.main_page'))
     global cache_keywords

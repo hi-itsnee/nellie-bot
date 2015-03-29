@@ -6,6 +6,10 @@
     <input type=text size=20 style="font-size:25px" name=data>
     &nbsp;&nbsp;&nbsp;&nbsp;
     <input type=submit id=submit value="Find stories">
+    {% from 'index.html' import about %}
 </form>
 {%endblock%}
+{% block footer %}
+{{ super() }}
+{% endblock %}
 
