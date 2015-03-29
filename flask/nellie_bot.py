@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from flask import Flask, url_for, redirect,render_template, request
 import os, sys, datetime
 basepath = os.getcwd()
