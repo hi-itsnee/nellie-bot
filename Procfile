@@ -1,1 +1,1 @@
-web: gunicorn nellie-bot:app --log-file -
+web: gunicorn flask/nellie-bot:app --log-file -
