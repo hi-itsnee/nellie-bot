@@ -47,6 +47,9 @@ coverage.xml
 # Django stuff:
 *.log
 
+#Flash stuff
+*.DS_Store
+
 # Sphinx documentation
 docs/_build/
 
