@@ -70,7 +70,6 @@ def data_nytimes():
     global cache_keywords
     static_text = "Would you like to search for something or just get today's top stories?"
     if request.method=='POST':
-        print request.form
         if "about" in request.form:    
             return redirect(url_for('.about_page'))
         if "headlines" in request.form:
@@ -109,7 +108,6 @@ def show_entries(source):
     else:
         stories = {}
         for word in cache_keywords:
-            print "getting "+word
             stories.update(getattr(sys.modules[source], "get_stories")(str(word)))
     try:
         if stories == {}:
