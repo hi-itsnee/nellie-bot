@@ -1,0 +1,17 @@
+<!--<!doctype html>-->
+{% extends "index.html"%}
+{% block body %}
+<h4>{{static_text}}</h4>
+<form method = 'post'>
+    <input type=text size=20 style="font-size:25px" name=data>
+    <p>
+    <input type=submit id=submit value="Find stories">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type=submit id=submit name="headlines" value="Top stories">
+    {% from 'index.html' import about %}
+</form>
+{%endblock%}
+{% block footer %}
+{{ super() }}
+{% endblock %}
+
