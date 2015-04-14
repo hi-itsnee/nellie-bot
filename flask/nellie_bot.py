@@ -43,6 +43,8 @@ def rerouting(item):
         return redirect(url_for('.data_input',source=item.keys()[0]))
     elif "about" in item:
         return redirect(url_for('.about_page'))
+    elif "nytimes" in item:
+        return redirect(url_for('.data_nytimes'))
     else:
         return redirect(url_for('.data_input',source=item.keys()[0]))
 
@@ -63,6 +65,21 @@ def bzfd_input():
         return redirect(url_for('.show_entries',source="buzzfeed"))
     return render_template('get_buzzfeed.html',static_text=static_text, greeting=get_greeting())
 
+@app.route('/nytimes/data',methods=['POST','GET'])
+def data_nytimes():
+    global cache_keywords
+    static_text = "Would you like to search for something or just get today's top stories?"
+    if request.method=='POST':
+        print request.form
+        if "about" in request.form:    
+            return redirect(url_for('.about_page'))
+        if "headlines" in request.form:
+            cache_keywords = ["headlines"]
+        else:
+            cache_keywords = [item.strip() for item in request.form['data'].split(',')]
+        return redirect(url_for('.show_entries',source="nytimes"))
+    return render_template('get_nytimes.html',static_text=static_text, greeting=get_greeting())
+
 @app.route('/<source>/data', methods=['POST','GET'])
 def data_input(source):
     global cache_keywords
@@ -72,7 +89,10 @@ def data_input(source):
     if request.method=='POST':
         if "about" in request.form:
             return redirect(url_for('.about_page'))
-        cache_keywords = [item.strip() for item in request.form['data'].split(',')]
+        if source=="nytimes" and "headlines" in request.form:
+            cache_keywords = ["headlines"]
+        else:
+            cache_keywords = [item.strip() for item in request.form['data'].split(',')]
         return redirect(url_for('.show_entries',source=source))
     return render_template('get_optional_data.html',static_text=static_text, greeting=get_greeting())
 
@@ -89,6 +109,7 @@ def show_entries(source):
     else:
         stories = {}
         for word in cache_keywords:
+            print "getting "+word
             stories.update(getattr(sys.modules[source], "get_stories")(str(word)))
     try:
         if stories == {}:
