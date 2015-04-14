@@ -9,7 +9,18 @@ def build_url(keyword):
     url=url.replace('[MYKEY]', get_api_item('nytimes','key'))
     return url
 
+def get_headlines():
+    url = "http://api.nytimes.com/svc/topstories/v1/home.json?api-key=[MYKEY]"
+    url=url.replace('[MYKEY]', get_api_item('nytimes','topstories'))
+    results = rest.get(url)['results']
+    hits = {}
+    for result in results:
+        hits[result['title']]=result['url']
+    return hits
+
 def get_stories(keyword):
+    if keyword == "headlines":
+        return get_headlines()
     hits = {}
     url = build_url(keyword)
     results = rest.get(url)['response']['docs']
